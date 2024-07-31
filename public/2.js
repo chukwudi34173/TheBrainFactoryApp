@@ -421,7 +421,7 @@ var render = function render() {
     staticClass: "col-md-12 col-lg-12 mt-2 mb-2"
   }, [_c("div", {
     staticClass: "d-flex justify-content-between"
-  }, [_c("div"), _vm._v(" "), _c("div", {
+  }, [_vm._m(4), _vm._v(" "), _c("div", {
     staticClass: "btn-actions-pane-right text-capitalize actions-icon-btn"
   }, [_c("toggle-button", {
     attrs: {
@@ -638,7 +638,7 @@ var render = function render() {
     staticClass: "card-title"
   }, [_vm._v("APPROVED (PAID) Candidate")]), _vm._v(" "), _c("div", {
     staticClass: "d-flex align-items-center"
-  }, [_vm._m(4), _vm._v(" "), _c("div", {
+  }, [_vm._m(5), _vm._v(" "), _c("div", {
     staticClass: "ps-3"
   }, [_c("h6", [_vm._v("\n                              " + _vm._s(_vm.card_data_approved_candidate && _vm.card_data_approved_candidate[0] && _vm.card_data_approved_candidate[0].card_data_approved_candidate) + "\n                            ")])])])])])]), _vm._v(" "), _c("div", {
     staticClass: "col-md-12 col-12 col-lg-12 border-top pt-5 mt-3 pb-5",
@@ -660,7 +660,7 @@ var render = function render() {
     staticClass: "card-title text-warning"
   }, [_vm._v("\n                          NDING (UNPAID) Candidate\n                        ")]), _vm._v(" "), _c("div", {
     staticClass: "d-flex align-items-center"
-  }, [_vm._m(5), _vm._v(" "), _c("div", {
+  }, [_vm._m(6), _vm._v(" "), _c("div", {
     staticClass: "ps-3"
   }, [_c("h6", [_vm._v("\n                              " + _vm._s(_vm.card_data_pending_candidate && _vm.card_data_pending_candidate[0] && _vm.card_data_pending_candidate[0].card_data_pending_candidate) + "\n                            ")])])])])])])])])])]) : _vm._e()])])], 1)]), _vm._v(" "), _c("b-modal", {
     attrs: {
@@ -723,6 +723,26 @@ var staticRenderFns = [function () {
   }, [_c("span", {
     staticClass: "input-group-text"
   }, [_vm._v("Filter Status")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", [_c("button", {
+    staticClass: "btn btn-alternate btn-sm",
+    staticStyle: {
+      color: "#fff !important",
+      "background-color": "#7db117 !important",
+      "border-color": "#7db117 !important",
+      "font-size": "0.94rem !important",
+      "font-weight": "500 !important",
+      padding: "0.375rem 0.75rem !important",
+      "text-align": "center !important",
+      "line-height": "1.5 !important",
+      "border-radius": "0.25rem !important"
+    },
+    attrs: {
+      type: "button"
+    }
+  }, [_vm._v("\n                Clear Last 30 days uploaded files\n              ")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;

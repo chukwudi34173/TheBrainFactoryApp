@@ -94,7 +94,25 @@
           </div>
           <div class="col-md-12 col-lg-12 mt-2 mb-2">
             <div class="d-flex justify-content-between">
-              <div></div>
+              <div>
+                <button
+                  type="button"
+                  class="btn btn-alternate btn-sm"
+                  style="
+                    color: #fff !important;
+                    background-color: #7db117 !important;
+                    border-color: #7db117 !important;
+                    font-size: 0.94rem !important;
+                    font-weight: 500 !important;
+                    padding: 0.375rem 0.75rem !important;
+                    text-align: center !important;
+                    line-height: 1.5 !important;
+                    border-radius: 0.25rem !important;
+                  "
+                >
+                  Clear Last 30 days uploaded files
+                </button>
+              </div>
               <div
                 class="btn-actions-pane-right text-capitalize actions-icon-btn"
               >
