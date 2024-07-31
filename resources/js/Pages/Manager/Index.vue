@@ -205,6 +205,19 @@
                                 ></i>
                                 <span class="text-sm">Approve Transaction</span>
                               </button>
+                              <button
+                                type="button"
+                                tabindex="0"
+                                class="dropdown-item"
+                                @click="ViewRecp(stu)"
+                              >
+                                <i
+                                  class="pe-7s-note icon-gradient bg-grow-early mr-2"
+                                ></i>
+                                <span class="text-sm"
+                                  >View Transaction Receipt</span
+                                >
+                              </button>
                             </b-dropdown>
                           </div>
                         </td>
@@ -351,6 +364,33 @@
         </div>
       </div>
     </div>
+    <b-modal
+      id="view-receipt"
+      hide-footer
+      :title="
+        `View ` +
+        details?.first_name +
+        ' ' +
+        details?.middle_name +
+        ' ' +
+        details?.other_name +
+        `  Transaction Receipt`
+      "
+      size="xl"
+    >
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <iframe
+              id="pdfPreview"
+              width="100%"
+              height="600px"
+              :src="'/' + details?.trans_refrence_id"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -499,6 +539,7 @@ export default {
       total_candidate: 0,
       bar_status: true,
       barchart_data: [],
+      details: {},
     };
   },
 
@@ -617,6 +658,11 @@ export default {
 
           this.chatComponentKey += 1;
         });
+    },
+    ViewRecp(data) {
+      this.details = data;
+      console.log(this.details, 333);
+      this.$bvModal.show("view-receipt");
     },
   },
   mounted() {

@@ -139,7 +139,8 @@ _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_3__["library"].add(_f
       piechart_data: {},
       total_candidate: 0,
       bar_status: true,
-      barchart_data: []
+      barchart_data: [],
+      details: {}
     };
   },
   methods: {
@@ -231,6 +232,11 @@ _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_3__["library"].add(_f
         _this3.loading = false;
         _this3.chatComponentKey += 1;
       });
+    },
+    ViewRecp: function ViewRecp(data) {
+      this.details = data;
+      console.log(this.details, 333);
+      this.$bvModal.show("view-receipt");
     }
   },
   mounted: function mounted() {
@@ -252,6 +258,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 var render = function render() {
+  var _vm$details, _vm$details2, _vm$details3, _vm$details4;
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", [_c("div", {
@@ -532,7 +539,22 @@ var render = function render() {
       staticClass: "pe-7s-note icon-gradient bg-grow-early mr-2"
     }), _vm._v(" "), _c("span", {
       staticClass: "text-sm"
-    }, [_vm._v("Approve Transaction")])]) : _vm._e()])], 1)])]);
+    }, [_vm._v("Approve Transaction")])]) : _vm._e(), _vm._v(" "), _c("button", {
+      staticClass: "dropdown-item",
+      attrs: {
+        type: "button",
+        tabindex: "0"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.ViewRecp(stu);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "pe-7s-note icon-gradient bg-grow-early mr-2"
+    }), _vm._v(" "), _c("span", {
+      staticClass: "text-sm"
+    }, [_vm._v("View Transaction Receipt")])])])], 1)])]);
   }), 0)])]) : _c("div", [_c("div", {
     staticClass: "alert alert-info mt-4 mb-3"
   }, [_c("small", {
@@ -640,7 +662,27 @@ var render = function render() {
     staticClass: "d-flex align-items-center"
   }, [_vm._m(5), _vm._v(" "), _c("div", {
     staticClass: "ps-3"
-  }, [_c("h6", [_vm._v("\n                              " + _vm._s(_vm.card_data_pending_candidate && _vm.card_data_pending_candidate[0] && _vm.card_data_pending_candidate[0].card_data_pending_candidate) + "\n                            ")])])])])])])])])])]) : _vm._e()])])], 1)])]);
+  }, [_c("h6", [_vm._v("\n                              " + _vm._s(_vm.card_data_pending_candidate && _vm.card_data_pending_candidate[0] && _vm.card_data_pending_candidate[0].card_data_pending_candidate) + "\n                            ")])])])])])])])])])]) : _vm._e()])])], 1)]), _vm._v(" "), _c("b-modal", {
+    attrs: {
+      id: "view-receipt",
+      "hide-footer": "",
+      title: "View " + ((_vm$details = _vm.details) === null || _vm$details === void 0 ? void 0 : _vm$details.first_name) + " " + ((_vm$details2 = _vm.details) === null || _vm$details2 === void 0 ? void 0 : _vm$details2.middle_name) + " " + ((_vm$details3 = _vm.details) === null || _vm$details3 === void 0 ? void 0 : _vm$details3.other_name) + "  Transaction Receipt",
+      size: "xl"
+    }
+  }, [_c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-12"
+  }, [_c("iframe", {
+    attrs: {
+      id: "pdfPreview",
+      width: "100%",
+      height: "600px",
+      src: "/" + ((_vm$details4 = _vm.details) === null || _vm$details4 === void 0 ? void 0 : _vm$details4.trans_refrence_id)
+    }
+  })])])])])], 1);
 };
 var staticRenderFns = [function () {
   var _vm = this,

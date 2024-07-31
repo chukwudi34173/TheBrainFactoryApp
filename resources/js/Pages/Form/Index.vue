@@ -301,8 +301,8 @@
                       id="COMMON ENTRANCE"
                       name="class_tick"
                       value="COMMON ENTRANCE"
-                      v-model="form.class_tick"
                       class="pt-4 ml-2"
+                      v-model="form.class_tick"
                     />
                   </span>
                   <span class="ml-3">
@@ -312,8 +312,8 @@
                       id="PRY-1-6"
                       name="class_tick"
                       value="PRY (1-6)"
-                      v-model="form.class_tick"
                       class="pt-4 ml-2"
+                      v-model="form.class_tick"
                     />
                   </span>
                   <span class="ml-3">
@@ -323,8 +323,8 @@
                       id="JSS-1-3"
                       name="class_tick"
                       value="JSS (1-3)"
-                      v-model="form.class_tick"
                       class="pt-4 ml-2"
+                      v-model="form.class_tick"
                     />
                   </span>
                   <span class="ml-3">
@@ -334,8 +334,8 @@
                       id="SSS-1-3"
                       name="class_tick"
                       value="SSS (1-3)"
-                      v-model="form.class_tick"
                       class="pt-4 ml-2"
+                      v-model="form.class_tick"
                     />
                   </span>
                   <span class="ml-3">
@@ -652,16 +652,35 @@
                       &nbsp;&nbsp;(08119503964)
                     </h6>
                     <label for="trans_refrence_id"
-                      >Transaction Refrence ID:</label
+                      >Upload Transaction Refrence ID
+                      <span class="text-danger">** PDF Required Only **</span
+                      >:</label
                     >
+                    <div v-if="srcd != null">
+                      <iframe
+                        id="pdfPreview"
+                        width="100%"
+                        height="600px"
+                        :src="srcd"
+                      ></iframe>
+                    </div>
+                    <iframe
+                      id="pdfPreview"
+                      width="100%"
+                      height="600px"
+                      :src="form.trans_refrence_id"
+                      v-if="srcd == null && form.trans_refrence_id"
+                    ></iframe>
+                    <!-- v-model="form.trans_refrence_id" -->
                     <input
                       name="trans_refrence_id"
                       id="trans_refrence_id"
                       class="fjinput form-control"
-                      type="text"
+                      type="file"
                       placeholder="Enter Transaction Refrence ID (required)"
                       required
-                      v-model="form.trans_refrence_id"
+                      @change="onFileChange"
+                      :accept="imgType"
                     />
                   </li>
                 </ul>
@@ -771,6 +790,12 @@ export default {
       approve: false,
       dobCorrect: false,
       dobError: false,
+      url: null,
+      fileName: "",
+      imgValue: null,
+      imgType: "",
+      prev_img: "",
+      srcd: null,
     };
   },
   components: {
@@ -779,6 +804,17 @@ export default {
   },
 
   methods: {
+    onFileChange(e) {
+      const file = e.target.files[0];
+      this.form.trans_refrence_id = file;
+      this.fileName = file.name;
+
+      const fileReader = new FileReader();
+      fileReader.onload = (event) => {
+        this.srcd = event.target.result;
+      };
+      fileReader.readAsDataURL(file);
+    },
     scrollToTop() {
       window.scrollTo({
         top: 0,
@@ -799,18 +835,52 @@ export default {
         .finally(() => (this.loading = false));
     },
     async submitRegistrationPayment() {
+      let formData = new FormData();
+      formData.append("dob", this.form.dob);
+      formData.append("subject_1", this.form.subject_1);
+      formData.append("subject_2", this.form.subject_2);
+      formData.append("subject_3", this.form.subject_3);
+      formData.append("subject_4", this.form.subject_4);
+      formData.append("subject_5", this.form.subject_5);
+      formData.append("subject_6", this.form.subject_6);
+      formData.append("subject_7", this.form.subject_7);
+      formData.append("subject_8", this.form.subject_8);
+      formData.append("subject_9", this.form.subject_9);
+      formData.append("time_section", this.form.time_section);
+      formData.append(
+        "expected_amount_plan_desc",
+        this.form.expected_amount_plan_desc
+      );
+      formData.append("first_name", this.form.first_name);
+      formData.append("middle_name", this.form.middle_name);
+      formData.append("other_name", this.form.other_name);
+      formData.append("sex", this.form.sex);
+      formData.append("dob", this.form.dob);
+      formData.append("father_name", this.form.father_name);
+      formData.append("mother_name", this.form.mother_name);
+      formData.append("father_occupation", this.form.father_occupation);
+      formData.append("mother_occupation", this.form.mother_occupation);
+      formData.append("state_of_origin", this.form.state_of_origin);
+      formData.append("lga_of_origin", this.form.lga_of_origin);
+      formData.append("current_address", this.form.current_address);
+      formData.append("parent_whatapp_no", this.form.parent_whatapp_no);
+      formData.append("candidate_phone_no", this.form.candidate_phone_no);
+      formData.append("class_tick", this.form.class_tick);
+      formData.append("attestation", this.form.attestation);
+      formData.append("trans_refrence_id", this.form.trans_refrence_id);
+      formData.append("id", this.form.id);
+
       this.subtractYears(new Date(this.form.dob), 2);
       if (this.dobCorrect == true) {
         this.loading = true;
 
         axios
-          .post("/examination/registration", this.form)
+          .post("/examination/registration", formData)
           .then((res) => {
             this.loading = true;
 
             if (res.data.status2) {
               this.$toast.success(res.data.message);
-              this.errorMessage = {};
 
               let retriveInfo = JSON.parse(
                 localStorage.getItem("registered_form")
@@ -829,6 +899,7 @@ export default {
                 "registered_form",
                 JSON.stringify(res.data.data)
               );
+              this.registeredForm = true;
             }
           })
           .catch((error) => {
@@ -842,6 +913,7 @@ export default {
     clearForm() {
       this.form = {};
       localStorage.removeItem("registered_form");
+      window.location.reload();
       toastr.success("InformationCleared successfully");
     },
     subtractYears(dob, numOfYears, date = new Date()) {

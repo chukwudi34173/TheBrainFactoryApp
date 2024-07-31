@@ -36,7 +36,13 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       load_key: 0,
       approve: false,
       dobCorrect: false,
-      dobError: false
+      dobError: false,
+      url: null,
+      fileName: "",
+      imgValue: null,
+      imgType: "",
+      prev_img: "",
+      srcd: null
     };
   },
   components: {
@@ -44,6 +50,17 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     VueMask: v_mask__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   methods: {
+    onFileChange: function onFileChange(e) {
+      var _this = this;
+      var file = e.target.files[0];
+      this.form.trans_refrence_id = file;
+      this.fileName = file.name;
+      var fileReader = new FileReader();
+      fileReader.onload = function (event) {
+        _this.srcd = event.target.result;
+      };
+      fileReader.readAsDataURL(file);
+    },
     scrollToTop: function scrollToTop() {
       window.scrollTo({
         top: 0,
@@ -51,31 +68,62 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       });
     },
     getApprovedforPrint: function getApprovedforPrint() {
-      var _this = this;
+      var _this2 = this;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/examination/approvedforprint", this.form).then(function (res) {
         if (res.data.status == 1) {
-          _this.approve = true;
+          _this2.approve = true;
         }
       })["catch"](function (error) {
-        _this.scrollToTop();
+        _this2.scrollToTop();
       })["finally"](function () {
-        return _this.loading = false;
+        return _this2.loading = false;
       });
     },
     submitRegistrationPayment: function submitRegistrationPayment() {
-      var _this2 = this;
+      var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var formData;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _this2.subtractYears(new Date(_this2.form.dob), 2);
-              if (_this2.dobCorrect == true) {
-                _this2.loading = true;
-                axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/examination/registration", _this2.form).then(function (res) {
-                  _this2.loading = true;
+              formData = new FormData();
+              formData.append("dob", _this3.form.dob);
+              formData.append("subject_1", _this3.form.subject_1);
+              formData.append("subject_2", _this3.form.subject_2);
+              formData.append("subject_3", _this3.form.subject_3);
+              formData.append("subject_4", _this3.form.subject_4);
+              formData.append("subject_5", _this3.form.subject_5);
+              formData.append("subject_6", _this3.form.subject_6);
+              formData.append("subject_7", _this3.form.subject_7);
+              formData.append("subject_8", _this3.form.subject_8);
+              formData.append("subject_9", _this3.form.subject_9);
+              formData.append("time_section", _this3.form.time_section);
+              formData.append("expected_amount_plan_desc", _this3.form.expected_amount_plan_desc);
+              formData.append("first_name", _this3.form.first_name);
+              formData.append("middle_name", _this3.form.middle_name);
+              formData.append("other_name", _this3.form.other_name);
+              formData.append("sex", _this3.form.sex);
+              formData.append("dob", _this3.form.dob);
+              formData.append("father_name", _this3.form.father_name);
+              formData.append("mother_name", _this3.form.mother_name);
+              formData.append("father_occupation", _this3.form.father_occupation);
+              formData.append("mother_occupation", _this3.form.mother_occupation);
+              formData.append("state_of_origin", _this3.form.state_of_origin);
+              formData.append("lga_of_origin", _this3.form.lga_of_origin);
+              formData.append("current_address", _this3.form.current_address);
+              formData.append("parent_whatapp_no", _this3.form.parent_whatapp_no);
+              formData.append("candidate_phone_no", _this3.form.candidate_phone_no);
+              formData.append("class_tick", _this3.form.class_tick);
+              formData.append("attestation", _this3.form.attestation);
+              formData.append("trans_refrence_id", _this3.form.trans_refrence_id);
+              formData.append("id", _this3.form.id);
+              _this3.subtractYears(new Date(_this3.form.dob), 2);
+              if (_this3.dobCorrect == true) {
+                _this3.loading = true;
+                axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/examination/registration", formData).then(function (res) {
+                  _this3.loading = true;
                   if (res.data.status2) {
-                    _this2.$toast.success(res.data.message);
-                    _this2.errorMessage = {};
+                    _this3.$toast.success(res.data.message);
                     var retriveInfo = JSON.parse(localStorage.getItem("registered_form"));
                     if (retriveInfo) {
                       localStorage.removeItem("registered_form");
@@ -83,18 +131,19 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
                     }
                   }
                   if (res.data.status) {
-                    _this2.$toast.success(res.data.message);
+                    _this3.$toast.success(res.data.message);
                     localStorage.setItem("registered_form", JSON.stringify(res.data.data));
+                    _this3.registeredForm = true;
                   }
                 })["catch"](function (error) {
-                  _this2.errorMessage = error.response.data;
-                  _this2.errorMessageLoad = true;
-                  _this2.scrollToTop();
+                  _this3.errorMessage = error.response.data;
+                  _this3.errorMessageLoad = true;
+                  _this3.scrollToTop();
                 })["finally"](function () {
-                  return _this2.loading = false;
+                  return _this3.loading = false;
                 });
               }
-            case 2:
+            case 33:
             case "end":
               return _context.stop();
           }
@@ -104,6 +153,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     clearForm: function clearForm() {
       this.form = {};
       localStorage.removeItem("registered_form");
+      window.location.reload();
       toastr.success("InformationCleared successfully");
     },
     subtractYears: function subtractYears(dob, numOfYears) {
@@ -1407,33 +1457,32 @@ var render = function render() {
     staticClass: "list-unstyled"
   }, [_c("h6", [_vm._v("\n                  Please transfer the specified amount to the following bank\n                  account:\n                ")]), _vm._v(" "), _vm._m(18), _vm._v(" "), _vm._m(19), _vm._v(" "), _vm._m(20), _vm._v(" "), _c("li", {
     staticClass: "mt-2"
-  }, [_c("h6", [_vm._v("\n                    NOTE : SEND PAYMENT RECEIPT TO THE BURSARY WHATTAPP NUMBER\n                      (08119503964)\n                  ")]), _vm._v(" "), _c("label", {
+  }, [_c("h6", [_vm._v("\n                    NOTE : SEND PAYMENT RECEIPT TO THE BURSARY WHATTAPP NUMBER\n                      (08119503964)\n                  ")]), _vm._v(" "), _vm._m(21), _vm._v(" "), _vm.srcd != null ? _c("div", [_c("iframe", {
     attrs: {
-      "for": "trans_refrence_id"
+      id: "pdfPreview",
+      width: "100%",
+      height: "600px",
+      src: _vm.srcd
     }
-  }, [_vm._v("Transaction Refrence ID:")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.trans_refrence_id,
-      expression: "form.trans_refrence_id"
-    }],
+  })]) : _vm._e(), _vm._v(" "), _vm.srcd == null && _vm.form.trans_refrence_id ? _c("iframe", {
+    attrs: {
+      id: "pdfPreview",
+      width: "100%",
+      height: "600px",
+      src: _vm.form.trans_refrence_id
+    }
+  }) : _vm._e(), _vm._v(" "), _c("input", {
     staticClass: "fjinput form-control",
     attrs: {
       name: "trans_refrence_id",
       id: "trans_refrence_id",
-      type: "text",
+      type: "file",
       placeholder: "Enter Transaction Refrence ID (required)",
-      required: ""
-    },
-    domProps: {
-      value: _vm.form.trans_refrence_id
+      required: "",
+      accept: _vm.imgType
     },
     on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "trans_refrence_id", $event.target.value);
-      }
+      change: _vm.onFileChange
     }
   })])])]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-12 border-bottom mb-0"
@@ -1512,7 +1561,7 @@ var render = function render() {
         return _vm.submitRegistrationPayment.apply(null, arguments);
       }
     }
-  }, [_vm._v("\n                Submit Information\n              ")])])], 1)]), _vm._v(" "), _vm._m(21)])])])]);
+  }, [_vm._v("\n                Submit Information\n              ")])])], 1)]), _vm._v(" "), _vm._m(22)])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -1692,6 +1741,16 @@ var staticRenderFns = [function () {
   return _c("li", {
     staticClass: "mt-2"
   }, [_c("h5", [_vm._v("Bank:   OPAY")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    attrs: {
+      "for": "trans_refrence_id"
+    }
+  }, [_vm._v("Upload Transaction Refrence ID\n                    "), _c("span", {
+    staticClass: "text-danger"
+  }, [_vm._v("** PDF Required Only **")]), _vm._v(":")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;

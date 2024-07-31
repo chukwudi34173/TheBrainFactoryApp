@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\RegistrationPayment;
+use Carbon\Carbon;
+use Faker\Core\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File as FacadesFile;
 use Inertia\Inertia;
 
 class aclcontroller extends Controller
@@ -25,7 +28,8 @@ class aclcontroller extends Controller
 
     public function registerExaminationInfo(Request $request)
     {
-        if (!is_null($request->id)) {
+
+        if (!is_null($request->id) && $request->id != "undefined") {
             $regPay = RegistrationPayment::where('id', $request->id)->update([
                 'first_name' => $request->first_name,
                 'middle_name' => $request->middle_name,
@@ -53,16 +57,24 @@ class aclcontroller extends Controller
                 'subject_9' => $request->subject_9,
                 'time_section' => $request->time_section,
                 'expected_amount_plan_desc' => $request->expected_amount_plan_desc,
-                // 'expected_amount_plan_desc' => $request->expected_amount_plan_desc,
-                'trans_refrence_id' => $request->trans_refrence_id,
-
+                'attestation' => filter_var($request->attestation, FILTER_VALIDATE_BOOLEAN),
+                // 'trans_refrence_id' => $request->file('trans_refrence_id')->store('pdf_files', 'public'),
             ]);
+
+
+
             $updated = RegistrationPayment::where('id', $request->id)->first();
+            if ($request->hasFile('trans_refrence_id')) {
+                $data['trans_refrence_id'] = $request->file('trans_refrence_id')->store('pdf_files', 'public');
+            } else {
+                $data['trans_refrence_id'] = $request->trans_refrence_id;
+            }
+            $updated->trans_refrence_id = $data['trans_refrence_id'];
+            $updated->save();
             if ($regPay) {
                 return response()->json(['message' => 'Candidate Registration Updated', 'status2' => true, 'data' => $updated], 200);
             }
         } else {
-
             $request->validate([
                 'first_name' => 'required',
                 'middle_name' => 'required',
@@ -93,9 +105,66 @@ class aclcontroller extends Controller
                 'trans_refrence_id' => 'required|unique:registration_payments',
                 'attestation' => 'required',
             ]);
-            $payment = RegistrationPayment::create($request->all());
+
+            $data = [
+                'first_name' => $request->first_name,
+                'middle_name' => $request->middle_name,
+                'other_name' => $request->other_name,
+                'sex' => $request->sex,
+                'dob' => $request->dob,
+                'father_name' => $request->father_name,
+                'father_occupation' => $request->father_occupation,
+                'mother_name' => $request->mother_name,
+                'mother_occupation' => $request->mother_occupation,
+                'state_of_origin' => $request->state_of_origin,
+                'lga_of_origin' => $request->lga_of_origin,
+                'current_address' => $request->current_address,
+                'parent_whatapp_no' => $request->parent_whatapp_no,
+                'candidate_phone_no' => $request->candidate_phone_no,
+                'class_tick' => $request->class_tick,
+                'subject_1' => $request->subject_1,
+                'subject_2' => $request->subject_2,
+                'subject_3' => $request->subject_3,
+                'subject_4' => $request->subject_4,
+                'subject_5' => $request->subject_5,
+                'subject_6' => $request->subject_6,
+                'subject_7' => $request->subject_7,
+                'subject_8' => $request->subject_8,
+                'subject_9' => $request->subject_9,
+                'time_section' => $request->time_section,
+                'expected_amount_plan_desc' => $request->expected_amount_plan_desc,
+                'attestation' => filter_var($request->attestation, FILTER_VALIDATE_BOOLEAN),
+                'trans_refrence_id' => $request->file('trans_refrence_id')->store('pdf_files', 'public'),
+            ];
+
+            if ($request->hasFile('trans_refrence_id')) {
+                $data['trans_refrence_id'] = $request->file('trans_refrence_id')->store('pdf_files', 'public');
+            } else {
+                $data['trans_refrence_id'] = $request->trans_refrence_id;
+            }
+
+            $payment = RegistrationPayment::create($data);
             return response()->json(['message' => 'Registration Successful', 'status' => true, 'data' => $payment], 201);
         }
+    }
+    public function deleteOldFiles()
+    {
+        $timeThreshold = Carbon::now()->subDays(3);
+
+        // // Calculate the timestamp for 168 hours (7 days) ago
+        // // $timeThreshold = Carbon::now()->subHours(20);
+
+        // $timeThreshold = Carbon::now()->subMinutes(5);
+
+        // Get the files older than the threshold
+        $files = RegistrationPayment::where('created_at', '<=', $timeThreshold);
+
+        foreach ($files->get() as $file) {
+            // Delete the file from the public storage
+            FacadesFile::delete(public_path('storage/' . $file->trans_refrence_id));
+            $files->update(['trans_refrence_id' => 'File Cleared']);
+        }
+        return response()->json(['message' => 'File Cleared Successful']);
     }
 
 

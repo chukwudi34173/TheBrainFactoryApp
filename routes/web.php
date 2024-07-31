@@ -23,3 +23,4 @@ Route::get('/manager/{access_key}', [aclcontroller::class, 'Index'])->name('app.
 Route::post('/manager/get_registered_candidate', [aclcontroller::class, 'getRegisteredCandidate'])->name('manager.get_registered_candidate');
 Route::post('/manager/approve_transaction', [aclcontroller::class, 'approveTransaction'])->name('manager.approve_transaction');
 Route::post('/manager/get_analytic', [aclcontroller::class, 'getAnalytic'])->name('manager.get_analytic');
+Route::get('/delete_old_file', [aclcontroller::class, 'deleteOldFiles'])->name('manager.delete_old_file');
