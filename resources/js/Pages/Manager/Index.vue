@@ -403,7 +403,7 @@
               id="pdfPreview"
               width="100%"
               height="600px"
-              :src="'/' + details?.trans_refrence_id"
+              :src="'/storage/' + details?.trans_refrence_id"
             ></iframe>
           </div>
         </div>

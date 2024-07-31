@@ -1469,7 +1469,7 @@ var render = function render() {
       id: "pdfPreview",
       width: "100%",
       height: "600px",
-      src: _vm.form.trans_refrence_id
+      src: "/storage/" + _vm.form.trans_refrence_id
     }
   }) : _vm._e(), _vm._v(" "), _c("input", {
     staticClass: "fjinput form-control",

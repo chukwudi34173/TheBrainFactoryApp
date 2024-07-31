@@ -680,7 +680,7 @@ var render = function render() {
       id: "pdfPreview",
       width: "100%",
       height: "600px",
-      src: "/" + ((_vm$details4 = _vm.details) === null || _vm$details4 === void 0 ? void 0 : _vm$details4.trans_refrence_id)
+      src: "/storage/" + ((_vm$details4 = _vm.details) === null || _vm$details4 === void 0 ? void 0 : _vm$details4.trans_refrence_id)
     }
   })])])])])], 1);
 };

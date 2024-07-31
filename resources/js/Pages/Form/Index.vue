@@ -668,7 +668,7 @@
                       id="pdfPreview"
                       width="100%"
                       height="600px"
-                      :src="form.trans_refrence_id"
+                      :src="'/storage/' + form.trans_refrence_id"
                       v-if="srcd == null && form.trans_refrence_id"
                     ></iframe>
                     <!-- v-model="form.trans_refrence_id" -->
