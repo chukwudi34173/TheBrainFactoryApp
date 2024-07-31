@@ -1307,16 +1307,16 @@ var render = function render() {
     staticClass: "ml-3",
     attrs: {
       type: "radio",
-      id: "jamb- #1000(with CBT)",
+      id: "jamb- #10000(with CBT)",
       name: "plan",
-      value: "jamb- #1000(with CBT)"
+      value: "jamb- #10000(with CBT)"
     },
     domProps: {
-      checked: _vm._q(_vm.form.expected_amount_plan_desc, "jamb- #1000(with CBT)")
+      checked: _vm._q(_vm.form.expected_amount_plan_desc, "jamb- #10000(with CBT)")
     },
     on: {
       change: function change($event) {
-        _vm.$set(_vm.form, "expected_amount_plan_desc", "jamb- #1000(with CBT)");
+        _vm.$set(_vm.form, "expected_amount_plan_desc", "jamb- #10000(with CBT)");
       }
     }
   })])]), _vm._v(" "), _c("li", [_c("p", [_vm._m(12), _vm._v(" "), _c("input", {
@@ -1329,16 +1329,16 @@ var render = function render() {
     staticClass: "ml-3",
     attrs: {
       type: "radio",
-      id: "waec/neco- #7000 (with CBT)",
+      id: "waec/neco- #5000 (with CBT)",
       name: "plan",
-      value: "waec/neco- #7000 (with CBT)"
+      value: "waec/neco- #5000 (with CBT)"
     },
     domProps: {
-      checked: _vm._q(_vm.form.expected_amount_plan_desc, "waec/neco- #7000 (with CBT)")
+      checked: _vm._q(_vm.form.expected_amount_plan_desc, "waec/neco- #5000 (with CBT)")
     },
     on: {
       change: function change($event) {
-        _vm.$set(_vm.form, "expected_amount_plan_desc", "waec/neco- #7000 (with CBT)");
+        _vm.$set(_vm.form, "expected_amount_plan_desc", "waec/neco- #5000 (with CBT)");
       }
     }
   })])]), _vm._v(" "), _c("li", [_c("p", [_vm._m(13), _vm._v(" "), _c("input", {
@@ -1419,14 +1419,14 @@ var render = function render() {
       type: "radio",
       id: "JSS(1/3)",
       name: "plan",
-      value: "JSS(1/3)- #2500"
+      value: "JSS(1/3)- #3000"
     },
     domProps: {
-      checked: _vm._q(_vm.form.expected_amount_plan_desc, "JSS(1/3)- #2500")
+      checked: _vm._q(_vm.form.expected_amount_plan_desc, "JSS(1/3)- #3000")
     },
     on: {
       change: function change($event) {
-        _vm.$set(_vm.form, "expected_amount_plan_desc", "JSS(1/3)- #2500");
+        _vm.$set(_vm.form, "expected_amount_plan_desc", "JSS(1/3)- #3000");
       }
     }
   })])]), _vm._v(" "), _c("li", [_c("p", [_vm._m(17), _vm._v(" "), _c("input", {
@@ -1660,7 +1660,7 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("label", {
     attrs: {
-      "for": "jamb- #1000(with CBT)"
+      "for": "jamb- #10000(with CBT)"
     }
   }, [_vm._v("\n                      JAMB -\n                      "), _c("span", {
     staticClass: "font-weight-bold"
@@ -1670,7 +1670,7 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("label", {
     attrs: {
-      "for": "waec/neco- #7000 (with CBT)"
+      "for": "waec/neco- #5000 (with CBT)"
     }
   }, [_vm._v("\n                      WAEC /NECO -\n                      "), _c("span", {
     staticClass: "font-weight-bold"
@@ -1714,7 +1714,7 @@ var staticRenderFns = [function () {
     }
   }, [_vm._v("\n                      JSS (1-3) - "), _c("span", {
     staticClass: "font-weight-bold"
-  }, [_vm._v("#2500")])]);
+  }, [_vm._v("#3000")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;

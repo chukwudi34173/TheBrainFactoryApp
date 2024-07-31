@@ -520,15 +520,15 @@
                 <ul class="mt-4 mb-3 list-unstyled">
                   <li>
                     <p>
-                      <label for="jamb- #1000(with CBT)">
+                      <label for="jamb- #10000(with CBT)">
                         JAMB -
                         <span class="font-weight-bold">#10,000 (with CBT)</span>
                       </label>
                       <input
                         type="radio"
-                        id="jamb- #1000(with CBT)"
+                        id="jamb- #10000(with CBT)"
                         name="plan"
-                        value="jamb- #1000(with CBT)"
+                        value="jamb- #10000(with CBT)"
                         class="ml-3"
                         v-model="form.expected_amount_plan_desc"
                       />
@@ -536,15 +536,15 @@
                   </li>
                   <li>
                     <p>
-                      <label for="waec/neco- #7000 (with CBT)">
+                      <label for="waec/neco- #5000 (with CBT)">
                         WAEC /NECO -
                         <span class="font-weight-bold">#5000 (with CBT)</span>
                       </label>
                       <input
                         type="radio"
-                        id="waec/neco- #7000 (with CBT)"
+                        id="waec/neco- #5000 (with CBT)"
                         name="plan"
-                        value="waec/neco- #7000 (with CBT)"
+                        value="waec/neco- #5000 (with CBT)"
                         class="ml-3"
                         v-model="form.expected_amount_plan_desc"
                       />
@@ -599,13 +599,13 @@
                   <li>
                     <p>
                       <label for="JSS(1/3)">
-                        JSS (1-3) - <span class="font-weight-bold">#2500</span>
+                        JSS (1-3) - <span class="font-weight-bold">#3000</span>
                       </label>
                       <input
                         type="radio"
                         id="JSS(1/3)"
                         name="plan"
-                        value="JSS(1/3)- #2500"
+                        value="JSS(1/3)- #3000"
                         class="ml-3"
                         v-model="form.expected_amount_plan_desc"
                       />
